@@ -18,10 +18,10 @@ public class SauceAutomation{
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.get("http://www.saucedemo.com");
     }
     @Test
-    public void validaAutomation() throws Exception {
-        driver.get("http://www.saucedemo.com");
+    public void acessLoginAutomation() throws Exception {
 
 
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
@@ -29,7 +29,9 @@ public class SauceAutomation{
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         Thread.sleep(2000);
         driver.findElement(By.name("login-button")).click();
-
+    }
+    @Test
+    public void shoppingAutomation() throws Exception {
 
         driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]")).click();
         Thread.sleep(2000);
@@ -40,24 +42,26 @@ public class SauceAutomation{
         driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("//*[@id=\"checkout\"]")).click();
-
         Thread.sleep(2000);
 
-
-        driver.findElement(By.id("first-name")).sendKeys("Marcel");
-        Thread.sleep(2000);
-        driver.findElement(By.id("last-name")).sendKeys("Aleixo");
-        Thread.sleep(2000);
-        driver.findElement(By.id("postal-code")).sendKeys("69092651");
-        Thread.sleep(2000);
+       driver.findElement(By.name("firstName")).sendKeys("Maria");
+       Thread.sleep(2000);
+       driver.findElement(By.name("lastName")).sendKeys("Rocha");
+       Thread.sleep(2000);
+       driver.findElement(By.name("postalCode")).sendKeys("69065853");
+       Thread.sleep(2000);
+       driver.findElement(By.name("continue")).click();
+       Thread.sleep(2000);
+       driver.findElement(By.name("finish")).click();
+       Thread.sleep(2000);
 
     }
-   /* @AfterTest
+    @AfterTest
     public void finalizaAutomation() {
         driver.quit();
 
 
-    }*/
+    }
 
 
 
