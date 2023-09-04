@@ -1,9 +1,8 @@
 package com.saucedemo.automacao;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.saucedemo.core.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -11,13 +10,14 @@ import org.testng.annotations.Test;
 public class SauceAutomation{
 
     WebDriver driver;
+    Driver driverWeb;
 
     @BeforeTest
     public void inicializaAutomation() {
-        WebDriverManager.chromedriver().setup();
+        driverWeb = new Driver("Chrome");
 
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driver = driverWeb.getDriver();
+
         driver.get("http://www.saucedemo.com");
     }
     @Test
