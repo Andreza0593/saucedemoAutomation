@@ -16,15 +16,15 @@ public class Driver {
                 driver = new ChromeDriver();
                 break;
             case "ie":
-                WebDriverManager.chromedriver().setup();
+                WebDriverManager.iedriver().setup();
                 driver = new InternetExplorerDriver();
                 break;
             case "firefox":
-                WebDriverManager.chromedriver().setup();
+                WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
                 break;
             case "edge":
-                WebDriverManager.chromedriver().setup();
+                WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
                 break;
             default:

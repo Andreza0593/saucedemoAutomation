@@ -1,6 +1,9 @@
 package com.saucedemo.automacao;
-
 import com.saucedemo.core.Driver;
+import com.saucedemo.pages.HomePage;
+import com.saucedemo.pages.ListShopping;
+import com.saucedemo.pages.RegisterInformation;
+import com.saucedemo.pages.ShoppingPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
@@ -11,53 +14,47 @@ public class SauceAutomation{
 
     WebDriver driver;
     Driver driverWeb;
+    HomePage homePage;
+    ShoppingPage shoppingPage;
+    ListShopping listShopping;
+    RegisterInformation registerInformation;
 
     @BeforeTest
-    public void inicializaAutomation() {
-        driverWeb = new Driver("Chrome");
+    public void inicializa() {
+        driverWeb = new Driver("chrome");
 
         driver = driverWeb.getDriver();
 
         driver.get("http://www.saucedemo.com");
+        homePage = new HomePage(driver);
+
     }
     @Test
-    public void acessLoginAutomation() throws Exception {
-
-
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
-        Thread.sleep(2000);
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
-        Thread.sleep(2000);
-        driver.findElement(By.name("login-button")).click();
+    public void accessLogin() throws Exception {
+         homePage.inputUserName("username");
+         homePage.inputPassword("password");
+         homePage.clickBtnLogin();
     }
     @Test
-    public void shoppingAutomation() throws Exception {
+    public void shopping() throws Exception {
+        shoppingPage.addBackpack();
+        shoppingPage.addBoldTShirt();
+        shoppingPage.addBikeLight();
+        shoppingPage.clickBtnCar();
 
-        driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bolt-t-shirt\"]")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bike-light\"]")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//*[@id=\"checkout\"]")).click();
-        Thread.sleep(2000);
+        listShopping.clickBtnCheckout();
 
-       driver.findElement(By.name("firstName")).sendKeys("Maria");
-       Thread.sleep(2000);
-       driver.findElement(By.name("lastName")).sendKeys("Rocha");
-       Thread.sleep(2000);
-       driver.findElement(By.name("postalCode")).sendKeys("69065853");
-       Thread.sleep(2000);
-       driver.findElement(By.name("continue")).click();
-       Thread.sleep(2000);
+        registerInformation.inputFirstName("firstname");
+        registerInformation.inputLasttName("lastname");
+        registerInformation.inputPostalCode(69092651);
+
+
        driver.findElement(By.name("finish")).click();
        Thread.sleep(2000);
 
     }
     @AfterTest
-    public void finalizaAutomation() {
+    public void finaliza() {
         driver.quit();
 
 
