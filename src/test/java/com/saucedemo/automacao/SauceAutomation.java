@@ -1,26 +1,24 @@
 package com.saucedemo.automacao;
 import com.saucedemo.core.Driver;
 import com.saucedemo.pages.HomePage;
-import com.saucedemo.pages.ListShopping;
-import com.saucedemo.pages.RegisterInformation;
-import com.saucedemo.pages.ShoppingPage;
-import org.openqa.selenium.By;
+import com.saucedemo.pages.CarPage;
+import com.saucedemo.pages.ProductsPage;
+import com.saucedemo.pages.RegisterPage;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class SauceAutomation{
+public class SauceAutomation {
 
     WebDriver driver;
     Driver driverWeb;
     HomePage homePage;
-    ShoppingPage shoppingPage;
-    ListShopping listShopping;
-    RegisterInformation registerInformation;
+    ProductsPage productsPage;
+    CarPage carPage;
+    RegisterPage registerPage;
 
     @BeforeTest
-    public void inicializa() {
+    public void start() {
         driverWeb = new Driver("chrome");
 
         driver = driverWeb.getDriver();
@@ -29,26 +27,46 @@ public class SauceAutomation{
         homePage = new HomePage(driver);
 
     }
+
     @Test
-    public void accessLogin() throws Exception {
-         homePage.inputUserName("username");
-         homePage.inputPassword("password");
-         homePage.clickBtnLogin();
-    }
-    @Test
-    public void shopping() throws Exception {
-        shoppingPage.addBackpack();
-        shoppingPage.addBoldTShirt();
-        shoppingPage.addBikeLight();
-        shoppingPage.clickBtnCar();
-
-        listShopping.clickBtnCheckout();
-
-        registerInformation.inputFirstName("firstname");
-        registerInformation.inputLasttName("lastname");
-        registerInformation.inputPostalCode(69092651);
+    public void login() throws Exception {
+        homePage = new HomePage(driver);
+        productsPage = new ProductsPage(driver);
+        carPage = new CarPage(driver);
+        registerPage = new RegisterPage(driver);
 
 
+
+        homePage.inputUserName("standard_user");
+        homePage.inputPassword("secret_sauce");
+        Thread.sleep(2000);
+        homePage.clickBtnLogin();
+
+
+        productsPage.msgProducts();
+        productsPage.addBckpack();
+        productsPage.addTShirt();
+        Thread.sleep(2000);
+        productsPage.clickBtnCar();
+
+
+
+        carPage.vldBackpack();
+        carPage.vldShirt ();
+        Thread.sleep(2000);
+        carPage.clickBtnCheckout();
+
+
+        registerPage.inputFirstName("Marta");
+        registerPage.inputLastName("Rios");
+        registerPage.inputPostalCode("69092651");
+        Thread.sleep(2000);
+        registerPage.clickBtnContinue();
+
+        /*WebElement finish = driver.findElement(By.tagName("finish"));
+        new Actions(driver)
+                .scrollToElement(finish)
+                .perform();
        driver.findElement(By.name("finish")).click();
        Thread.sleep(2000);
 
@@ -56,10 +74,7 @@ public class SauceAutomation{
     @AfterTest
     public void finaliza() {
         driver.quit();
-
+    }*/
 
     }
-
-
-
 }

@@ -1,31 +1,30 @@
 package com.saucedemo.pages;
-
+import com.saucedemo.maps.HomeMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.devtools.v113.page.Page;
+import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
     public WebDriver driver;
+    public HomeMap homeMap;
+     public HomePage(WebDriver driver) {
 
-    public HomePage(WebDriver driver) {
         this.driver = driver;
+        homeMap = new HomeMap();
+        PageFactory.initElements(driver, homeMap);
     }
 
     public void inputUserName (String username) throws Exception{
-        String xpathUserName = "//*[@id=\"user-name\"]";
-        driver.findElement(By.xpath(xpathUserName)).sendKeys(username);
-        Thread.sleep(2000);
+        homeMap.xpathUserName.sendKeys(username);
     }
 
     public void inputPassword (String password) throws Exception{
-        String xpathPassword = "//*[@id=\"password\"]";
-        driver.findElement(By.xpath(xpathPassword)).sendKeys(password);
-        Thread.sleep(2000);
+        homeMap.xpathPassword.sendKeys(password);
     }
 
     public void clickBtnLogin () throws Exception{
-        String xpathBtnLogin = "//*[@id=\"login-button\"]";
-        driver.findElement(By.xpath(xpathBtnLogin)).click();
-        Thread.sleep(2000);
+        homeMap.xpathBtnLogin.click();
     }
 
 
