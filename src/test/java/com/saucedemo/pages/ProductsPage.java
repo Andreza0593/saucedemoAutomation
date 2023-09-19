@@ -14,7 +14,7 @@ public class ProductsPage {
         PageFactory.initElements(driver, productsMap);
     }
 
-    public void msgProducts (){
+    public void titleProducts (){
 
         productsMap.xpathMsgProducts.getText();
     }

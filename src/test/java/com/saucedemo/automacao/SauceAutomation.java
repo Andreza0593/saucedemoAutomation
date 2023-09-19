@@ -1,10 +1,8 @@
 package com.saucedemo.automacao;
 import com.saucedemo.core.Driver;
-import com.saucedemo.pages.HomePage;
-import com.saucedemo.pages.CarPage;
-import com.saucedemo.pages.ProductsPage;
-import com.saucedemo.pages.RegisterPage;
+import com.saucedemo.pages.*;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -16,6 +14,8 @@ public class SauceAutomation {
     ProductsPage productsPage;
     CarPage carPage;
     RegisterPage registerPage;
+    OverviewPage overviewPage;
+    CompletePage completePage;
 
     @BeforeTest
     public void start() {
@@ -34,7 +34,8 @@ public class SauceAutomation {
         productsPage = new ProductsPage(driver);
         carPage = new CarPage(driver);
         registerPage = new RegisterPage(driver);
-
+        overviewPage = new OverviewPage(driver);
+        completePage = new CompletePage(driver);
 
 
         homePage.inputUserName("standard_user");
@@ -43,12 +44,11 @@ public class SauceAutomation {
         homePage.clickBtnLogin();
 
 
-        productsPage.msgProducts();
+        productsPage.titleProducts();
         productsPage.addBckpack();
         productsPage.addTShirt();
         Thread.sleep(2000);
         productsPage.clickBtnCar();
-
 
 
         carPage.vldBackpack();
@@ -63,18 +63,18 @@ public class SauceAutomation {
         Thread.sleep(2000);
         registerPage.clickBtnContinue();
 
-        /*WebElement finish = driver.findElement(By.tagName("finish"));
-        new Actions(driver)
-                .scrollToElement(finish)
-                .perform();
-       driver.findElement(By.name("finish")).click();
-       Thread.sleep(2000);
 
+        overviewPage.titleOverview();
+        Thread.sleep(2000);
+        overviewPage.clickBtnFinish();
+
+
+        completePage.titleComplete();
+        Thread.sleep(2000);
     }
-    @AfterTest
-    public void finaliza() {
-        driver.quit();
-    }*/
 
+    @AfterTest
+    public void finish() {
+        driver.quit();
     }
 }
